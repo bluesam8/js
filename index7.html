@@ -1,0 +1,77 @@
+<!DOCTYPE html dir="rtl" text-align="right">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+        #id2{
+            text-align: center;
+        }
+        #id3{
+            margin: 0;
+            font-size: 20px;
+            padding: 0 10 0 10;
+            position: absolute;
+            top: 15%;
+            left: 48%;
+          
+             }
+            #id1{
+                text-align: right;
+                direction: rtl;
+            } 
+
+            .button{
+                width: 50px;
+                height: 10px;
+                border-radius: 5px
+                
+                ;
+            }
+
+    </style>
+</head>
+<body >
+    <div class="container">
+    <h1 class="text-success" id="id2">تخفیف های موپن </h1><br><br><br>
+    <button type="button" onclick="show()" class="btn-info" id="id3" >click me</button>
+    <hr>
+    <div id="id1" ></div>
+    </div>
+
+    <script>
+        function show(){
+            var x = new XMLHttpRequest();
+            x.open("GET" , "kopon.json");
+            x.onload = function(){
+                
+                    var para = JSON.parse(this.responseText);
+                    var z = para.result
+                    tab(z);
+                
+            }
+            x.send();
+        }
+
+        function tab(z){
+            var table = '<table class=" table table-bordered table-striped  align-right text-right" ><tr><th>name</th><th>title</th><th>description</th><th>logo</th></tr>'
+            for (var i = 0 ; i< z.length ; i++){
+                table += "<tr class='align-right'>"
+                    table += "<td>"+ z[i].data.brand.name+"</td>"
+                table += "<td>"+ z[i].data.title+"</td>"
+                table += "<td class='align-right'>" + z[i].data.content+"</td>"
+                table += '<td> <img src="'+z[i].data.logo+'"></td>'
+                table += "</tr>"
+            }
+            table += "</table>"
+            document.getElementById("id1").innerHTML = table
+        }
+
+
+    </script>
+   
+</body>
+</html>
